@@ -9,6 +9,22 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&amp;display=swap">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    @keyframes rainbow {
+      0% { color: red; }
+      14% { color: orange; }
+      28% { color: yellow; }
+      42% { color: green; }
+      57% { color: blue; }
+      71% { color: indigo; }
+      85% { color: violet; }
+      100% { color: red; }
+    }
+
+    .rainbow-text {
+      animation: rainbow 5s linear infinite;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,7 +34,7 @@
     <img src="img/logo.png" alt="Logo" />
   </div>
   <div class="header_text flex_column_center">
-    <h1 class="header_h_item">YO!</h1>
+    <h1 class="header_h_item rainbow-text">YO!</h1>
     <h2 class="header_h_item">ทวีศิลป์ ใจดี 65345059-5</h2>
     <h3 class="header_h_item">thaweesin.j@kkumail.com</h3>
     <h4 class="header_h_item">CIS</h4>
