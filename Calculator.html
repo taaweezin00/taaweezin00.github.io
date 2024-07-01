@@ -1,153 +1,92 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Simple Calculator</title>
-
     <style>
-
         input[type="button"] {
-
             width: 50px;
-
             height: 50px;
-
             font-size: 16px;
-
             margin: 5px;
-
+            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
+        
+        input[type="button"]:hover {
+            opacity: 0.8;
+        }
+        
+        input[type="text"] {
+            width: 220px;
+            height: 50px;
+            font-size: 16px;
+            margin: 5px;
+            text-align: right;
+            padding-right: 10px;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+        }
     </style>
-
 </head>
-
 <body>
-
-
-
-    <h2>Simple Calculator</h2>
-
+    <h2>เครื่องคิดเลขแบบกากๆ</h2>
     <input type="text" id="display" disabled>
-
-    
-
     <br>
-
-
-
     <script>
-
         // Function to update the display
-
         function updateDisplay(value) {
-
             document.getElementById("display").value = value;
-
         }
-
-
 
         // Function to append to the display
-
         function appendToDisplay(value) {
-
             document.getElementById("display").value += value;
-
         }
-
-
 
         // Function to clear the display
-
         function clearDisplay() {
-
             document.getElementById("display").value = "";
-
         }
-
-
 
         // Function to calculate the result
-
         function calculateResult() {
-
             try {
-
                 updateDisplay(eval(document.getElementById("display").value));
-
             } catch (error) {
-
                 updateDisplay('Error');
-
             }
-
         }
-
     </script>
-
-
-
     <table>
-
         <tr>
-
             <td><input type="button" value="7" onclick="appendToDisplay('7')"></td>
-
             <td><input type="button" value="8" onclick="appendToDisplay('8')"></td>
-
             <td><input type="button" value="9" onclick="appendToDisplay('9')"></td>
-
             <td><input type="button" value="/" onclick="appendToDisplay('/')"></td>
-
         </tr>
-
         <tr>
-
             <td><input type="button" value="4" onclick="appendToDisplay('4')"></td>
-
             <td><input type="button" value="5" onclick="appendToDisplay('5')"></td>
-
             <td><input type="button" value="6" onclick="appendToDisplay('6')"></td>
-
             <td><input type="button" value="-" onclick="appendToDisplay('-')"></td>
-
         </tr>
-
         <tr>
-
             <td><input type="button" value="1" onclick="appendToDisplay('1')"></td>
-
             <td><input type="button" value="2" onclick="appendToDisplay('2')"></td>
-
             <td><input type="button" value="3" onclick="appendToDisplay('3')"></td>
-
             <td><input type="button" value="+" onclick="appendToDisplay('+')"></td>
-
         </tr>
-
         <tr>
-
             <td><input type="button" value="0" onclick="appendToDisplay('0')"></td>
-
             <td><input type="button" value="." onclick="appendToDisplay('.')"></td>
-
             <td><input type="button" value="C" onclick="clearDisplay()"></td>
-
             <td><input type="button" value="=" onclick="calculateResult()"></td>
-
         </tr>
-
     </table>
-
-
-
 </body>
-
 </html>
