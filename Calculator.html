@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Calculator</title>
+    <title>เครื่องคิดเลขแบบกากๆ</title>
     <style>
         input[type="button"] {
             width: 50px;
             height: 50px;
             font-size: 16px;
             margin: 5px;
-            background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.5s;
         }
         
         input[type="button"]:hover {
@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-    <h2>เครื่องคิดเลขแบบกากๆ</h2>
+    <h2>Simple Calculator</h2>
     <input type="text" id="display" disabled>
     <br>
     <script>
@@ -61,6 +61,27 @@
                 updateDisplay('Error');
             }
         }
+
+        // Function to generate a random color
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to update button colors
+        function updateButtonColors() {
+            const buttons = document.querySelectorAll('input[type="button"]');
+            buttons.forEach(button => {
+                button.style.backgroundColor = getRandomColor();
+            });
+        }
+
+        // Set interval to change button colors every second
+        setInterval(updateButtonColors, 1000);
     </script>
     <table>
         <tr>
