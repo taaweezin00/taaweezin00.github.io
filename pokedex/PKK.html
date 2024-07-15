@@ -26,12 +26,12 @@
         .then((data) => {
           const datas = data["results"];
           const ele = document.getElementById("name");
-          datas.forEach((element) => {
-            //https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png
+          datas.forEach((element, index) => {
+            const pokemonId = index + 1; // Pokémon IDs start at 1
             ele.innerHTML +=
               "<div class='col-3'>" +
               "<div class='card'>" +
-              "<img class='card-img-top' src=''>" +
+              "<img class='card-img-top' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemonId + ".png' alt='" + element["name"] + "'>" +
               "<div class='card-body'>" +
               element["name"] +
               "</div></div></div>";
