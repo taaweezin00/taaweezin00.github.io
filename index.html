@@ -35,6 +35,7 @@
   </style>
 </head>
 <body>
+
   <header>
     <div class="header_img flex_column_center">
       <img src="img/logo.png" alt="Logo" />
@@ -50,25 +51,11 @@
       <form action="to do list.html">
         <input type="submit" value="To Do List" />
       </form>
+      <a href="PKK.html" class="header_h_item">Pokedex</a>
     </div>
   </header>
+  
 
-  <div class="container">
-    <h1>Pokedex Lab</h1>
-    <p id="name"></p>
-  </div>
 
-  <script>
-    fetch("https://pokeapi.co/api/v2/pokemon")
-    .then((res) => res.json())
-    .then((data) => {
-        const datas = data["results"];
-        const ele = document.getElementById("name");
-        datas.forEach((element) => {
-            ele.innerHTML += "<div class='col'>" + element["name"] + "</div>";
-        });
-    })
-    .catch((err) => console.error(err));
-  </script>
 </body>
 </html>
