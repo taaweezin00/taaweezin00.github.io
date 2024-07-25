@@ -95,6 +95,24 @@
       </div>
     </div>
   </header>
+
+  <!-- Audio element for hover sound -->
+  <audio id="hoverSound" src="audio/sssss.mp4"></audio>
+
+  <script>
+    // Get the audio element
+    const hoverSound = document.getElementById('hoverSound');
+
+    // Get all buttons
+    const buttons = document.querySelectorAll('.btn-5');
+
+    // Add event listeners to play sound on hover
+    buttons.forEach(button => {
+      button.addEventListener('mouseover', () => {
+        hoverSound.play();
+      });
+    });
+  </script>
   
 </body>
 </html>
