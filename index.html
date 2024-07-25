@@ -56,6 +56,18 @@
       outline-offset: 15px;
       text-shadow: 1px 1px 2px #427388; 
     }
+
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center; /* Center buttons horizontally */
+      gap: 1em; /* Space between buttons */
+      padding: 1em;
+    }
+
+    .header_text {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -64,18 +76,19 @@
     <div class="header_img flex_column_center">
       <img src="img/logo.png" alt="Logo" />
     </div>
-    <div class="header_text flex_column_center">
+    <div class="header_text">
       <h1 class="header_h_item rainbow-text" style="color: yellow;">YO!</h1>
       <h2 class="header_h_item" style="color: yellow;">ทวีศิลป์ ใจดี 65345059-5</h2>
       <h3 class="header_h_item" style="color: yellow;">thaweesin.j@kkumail.com</h3>
       <h4 class="header_h_item" style="color: yellow;">CIS</h4>
-      <a href="https://github.com/taaweezin00" target="_blank" class="btn-5">GitHub</a> 
-      <h5 class="header_h_item" style="color: yellow;">ไม่บอก</h5>
-      <a href="Calculator.html" class="btn-5">เครื่องคิดเลข</a>
-      <form action="to do list.html">
-        <input type="submit" value="To Do List" class="btn-5" />
-      </form>
-      <a href="pokedex/PKK.html" class="btn-5">Pokedex</a>
+      <div class="button-container">
+        <a href="https://github.com/taaweezin00" target="_blank" class="btn-5">GitHub</a> 
+        <a href="Calculator.html" class="btn-5">เครื่องคิดเลข</a>
+        <form action="to do list.html">
+          <input type="submit" value="To Do List" class="btn-5" />
+        </form>
+        <a href="pokedex/PKK.html" class="btn-5">Pokedex</a>
+      </div>
     </div>
   </header>
   
