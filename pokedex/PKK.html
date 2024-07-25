@@ -1,49 +1,195 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>yeet</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <style>
-      .card {
-        margin-bottom: 1rem;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Pokedex Lab</h1>
-      <div id="name" class="row"></div>
-    </div>
-    <script>
-      fetch("https://pokeapi.co/api/v2/pokemon")
-        .then((res) => res.json())
-        .then((data) => {
-          const datas = data["results"];
-          const ele = document.getElementById("name");
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>yeet</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .card { margin-bottom: 1rem; }
+    .type-link, .ability-link { cursor: pointer; color: blue; }
+    #load-more { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pokedex Lab</h1>
+    <div id="name" class="row"></div>
+    <button id="load-more" class="btn btn-primary">Load More</button>
+  </div>
+  <script>
+    let offset = 0;
+    const limit = 20;
+    const loadPokemons = () => {
+      fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`)
+        .then(res => res.json())
+        .then(data => {
+          const datas = data.results;
+          const ele = document.getElementById('name');
           datas.forEach((element, index) => {
-            const pokemonId = index + 1; // รูป
-            ele.innerHTML +=
-              "<div class='col-3'>" +
-              "<a href='/details/index.html?name=" + element["name"] + "'>" +
-              "<div class='card'>" +
-              "<img class='card-img-top' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + pokemonId + ".png' alt='" + element["name"] + "'>" +
-              "<div class='card-body'>" +
-              element["name"] +
-              "</div></div></div>";
+            const pokemonId = offset + index + 1;
+            ele.innerHTML += `
+              <div class='col-3'>
+                <a href='/details/index.html?name=${element.name}'>
+                  <div class='card'>
+                    <img class='card-img-top' src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png' alt='${element.name}' />
+                    <div class='card-body'>${element.name}</div>
+                  </div>
+                </a>
+              </div>
+            `;
           });
+          offset += limit;
         })
-        .catch((err) => console.error(err));
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+        .catch(err => console.error(err));
+    };
+
+    document.getElementById('load-more').addEventListener('click', loadPokemons);
+    loadPokemons(); // Initial load
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pokemon Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .card { margin-bottom: 1rem; }
+    .type-link, .ability-link { cursor: pointer; color: blue; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="name">Loading...</h1>
+    <img id="sprite" class="img-fluid" />
+    <p id="height"></p>
+    <p id="weight"></p>
+    <div id="types"></div>
+    <div id="stats"></div>
+    <div id="abilities"></div>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const pokemonName = urlParams.get('name');
+
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('name').textContent = data.name;
+        document.getElementById('sprite').src = data.sprites.front_default;
+        document.getElementById('height').textContent = `Height: ${data.height}`;
+        document.getElementById('weight').textContent = `Weight: ${data.weight}`;
+        
+        const typesDiv = document.getElementById('types');
+        typesDiv.innerHTML = '<strong>Types:</strong>';
+        data.types.forEach(type => {
+          typesDiv.innerHTML += `<p class="type-link" onclick="openType('${type.type.name}')">${type.type.name}</p>`;
+        });
+
+        const statsDiv = document.getElementById('stats');
+        statsDiv.innerHTML = '<strong>Stats:</strong>';
+        data.stats.forEach(stat => {
+          statsDiv.innerHTML += `<p>${stat.stat.name}: ${stat.base_stat}</p>`;
+        });
+
+        const abilitiesDiv = document.getElementById('abilities');
+        abilitiesDiv.innerHTML = '<strong>Abilities:</strong>';
+        data.abilities.forEach(ability => {
+          abilitiesDiv.innerHTML += `<p class="ability-link" onclick="openAbility('${ability.ability.name}')">${ability.ability.name}</p>`;
+        });
+      })
+      .catch(err => console.error(err));
+
+    function openType(type) {
+      window.location.href = `/type.html?type=${type}`;
+    }
+
+    function openAbility(ability) {
+      window.location.href = `/ability.html?ability=${ability}`;
+    }
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Type Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <h1 id="type-name">Loading...</h1>
+    <div id="pokemon-list" class="row"></div>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const typeName = urlParams.get('type');
+
+    fetch(`https://pokeapi.co/api/v2/type/${typeName}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('type-name').textContent = `${typeName} Type Pokemon`;
+        const ele = document.getElementById('pokemon-list');
+        data.pokemon.forEach(p => {
+          ele.innerHTML += `
+            <div class='col-3'>
+              <a href='/details/index.html?name=${p.pokemon.name}'>
+                <div class='card'>
+                  <div class='card-body'>${p.pokemon.name}</div>
+                </div>
+              </a>
+            </div>
+          `;
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ability Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container">
+    <h1 id="ability-name">Loading...</h1>
+    <div id="pokemon-list" class="row"></div>
+  </div>
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const abilityName = urlParams.get('ability');
+
+    fetch(`https://pokeapi.co/api/v2/ability/${abilityName}`)
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('ability-name').textContent = `${abilityName} Ability Pokemon`;
+        const ele = document.getElementById('pokemon-list');
+        data.pokemon.forEach(p => {
+          ele.innerHTML += `
+            <div class='col-3'>
+              <a href='/details/index.html?name=${p.pokemon.name}'>
+                <div class='card'>
+                  <div class='card-body'>${p.pokemon.name}</div>
+                </div>
+              </a>
+            </div>
+          `;
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
 </html>
