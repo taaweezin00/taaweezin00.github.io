@@ -25,6 +25,7 @@
       animation: rainbow 1s linear infinite;
     }
 
+    /* New CSS for background image */
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
@@ -43,14 +44,9 @@
       color: yellow;
       background-color: black;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      padding: 0.5em 1em;
+      display: inline-block;
       text-align: center;
-      padding: 0.5em;
-      width: 150px; /* Set a fixed width for all buttons */
-      height: 50px; /* Set a fixed height for all buttons */
-      margin: 0.5em; /* Space between buttons */
     }
 
     .btn-5:hover {
@@ -60,18 +56,6 @@
       outline-offset: 15px;
       text-shadow: 1px 1px 2px #427388; 
     }
-
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center; /* Center buttons horizontally */
-      gap: 1em; /* Space between buttons */
-      padding: 1em;
-    }
-
-    .header_text {
-      text-align: center;
-    }
   </style>
 </head>
 <body>
@@ -80,39 +64,20 @@
     <div class="header_img flex_column_center">
       <img src="img/logo.png" alt="Logo" />
     </div>
-    <div class="header_text">
+    <div class="header_text flex_column_center">
       <h1 class="header_h_item rainbow-text" style="color: yellow;">YO!</h1>
       <h2 class="header_h_item" style="color: yellow;">ทวีศิลป์ ใจดี 65345059-5</h2>
       <h3 class="header_h_item" style="color: yellow;">thaweesin.j@kkumail.com</h3>
       <h4 class="header_h_item" style="color: yellow;">CIS</h4>
-      <div class="button-container">
-        <a href="https://github.com/taaweezin00" target="_blank" class="btn-5">GitHub</a> 
-        <a href="Calculator.html" class="btn-5">เครื่องคิดเลข</a>
-        <form action="to do list.html">
-          <input type="submit" value="To Do List" class="btn-5" />
-        </form>
-        <a href="pokedex/PKK.html" class="btn-5">Pokedex</a>
-      </div>
+      <a href="https://github.com/taaweezin00" target="_blank" class="btn-5">GitHub</a> 
+      <h5 class="header_h_item" style="color: yellow;">ไม่บอก</h5>
+      <a href="Calculator.html" class="btn-5">เครื่องคิดเลข</a>
+      <form action="to do list.html">
+        <input type="submit" value="To Do List" class="btn-5" />
+      </form>
+      <a href="pokedex/PKK.html" class="btn-5">Pokedex</a>
     </div>
   </header>
-
-  <!-- Audio element for hover sound -->
-  <audio id="hoverSound" src="audio/sssss.mp4"></audio>
-
-  <script>
-    // Get the audio element
-    const hoverSound = document.getElementById('hoverSound');
-
-    // Get all buttons
-    const buttons = document.querySelectorAll('.btn-5');
-
-    // Add event listeners to play sound on hover
-    buttons.forEach(button => {
-      button.addEventListener('mouseover', () => {
-        hoverSound.play();
-      });
-    });
-  </script>
   
 </body>
 </html>
