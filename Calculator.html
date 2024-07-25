@@ -10,6 +10,7 @@
             padding: 0;
             overflow: hidden;
             position: relative;
+            height: 100vh; /* Ensure body takes full height */
         }
         iframe {
             position: absolute;
@@ -19,6 +20,8 @@
             height: 100%;
             z-index: -1; /* Place iframe behind other content */
             border: 0;
+            /* To ensure video fits the screen properly */
+            object-fit: cover;
         }
         .calculator-container {
             position: relative;
@@ -34,6 +37,7 @@
     </style>
 </head>
 <body>
+    <!-- Embed YouTube video as background -->
     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
     <div class="calculator-container">
