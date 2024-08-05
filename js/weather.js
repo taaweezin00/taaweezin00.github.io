@@ -10,6 +10,7 @@ getWeatherBtn.addEventListener('click', () => {
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
+        console.log(data); // Log data to console for debugging
         if (data.cod === 200) {
           const temp = data.main.temp;
           const humidity = data.main.humidity;
