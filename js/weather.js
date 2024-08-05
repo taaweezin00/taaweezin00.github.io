@@ -1,12 +1,19 @@
-const apiKey = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={1b01b00a61b62f5bdc82e11572db3096}'; //API Key
+const apiKey = '1b01b00a61b62f5bdc82e11572db3096'; // แทนที่ด้วย API Key ของคุณ
 const getWeatherBtn = document.getElementById('getWeatherBtn');
 const weatherInfo = document.getElementById('weatherInfo');
 
 getWeatherBtn.addEventListener('click', () => {
   const city = document.getElementById('cityInput').value;
   if (city) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`)
-      .then(response => response.json())
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    fetch(apiUrl)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         if (data.cod === 200) {
           const temp = data.main.temp;
@@ -24,8 +31,9 @@ getWeatherBtn.addEventListener('click', () => {
       })
       .catch(error => {
         weatherInfo.innerHTML = `<p>Error fetching data: ${error}</p>`;
+        console.error('There was a problem with the fetch operation:', error);
       });
   } else {
-    weatherInfo.innerHTML = `<p>enter a city name.</p>`;
+    weatherInfo.innerHTML = `<p>Please enter a city name.</p>`;
   }
 });
