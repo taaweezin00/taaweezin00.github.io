@@ -1,4 +1,4 @@
-const apiKey = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={1b01b00a61b62f5bdc82e11572db3096}'; // แทนที่ด้วย API Key ของคุณ
+const apiKey = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={1b01b00a61b62f5bdc82e11572db3096}'; //API Key
 const getWeatherBtn = document.getElementById('getWeatherBtn');
 const weatherInfo = document.getElementById('weatherInfo');
 
@@ -26,6 +26,6 @@ getWeatherBtn.addEventListener('click', () => {
         weatherInfo.innerHTML = `<p>Error fetching data: ${error}</p>`;
       });
   } else {
-    weatherInfo.innerHTML = `<p>Please enter a city name.</p>`;
+    weatherInfo.innerHTML = `<p>enter a city name.</p>`;
   }
 });
