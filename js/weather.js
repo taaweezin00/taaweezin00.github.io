@@ -1,4 +1,4 @@
-const apiKey = 'https://openweathermap.org/api'; // แทนที่ด้วย API Key ของคุณ
+const apiKey = 'https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}'; // แทนที่ด้วย API Key ของคุณ
 const getWeatherBtn = document.getElementById('getWeatherBtn');
 const weatherInfo = document.getElementById('weatherInfo');
 
