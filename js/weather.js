@@ -1,11 +1,11 @@
-const apiKey = '1b01b00a61b62f5bdc82e11572db3096'; // API Key
+const apiKey = '1b01b00a61b62f5bdc82e11572db3096'; // API Key ของคุณ
 const getWeatherBtn = document.getElementById('getWeatherBtn');
 const weatherInfo = document.getElementById('weatherInfo');
 
 getWeatherBtn.addEventListener('click', () => {
   const city = document.getElementById('cityInput').value;
   if (city) {
-    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Bangkok&appid=1b01b00a61b62f5bdc82e11572db3096&units=metric`;
+    const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
     fetch(apiUrl)
       .then(response => response.json())
