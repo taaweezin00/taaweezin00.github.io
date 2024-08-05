@@ -8,7 +8,12 @@ getWeatherBtn.addEventListener('click', () => {
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
 
     fetch(apiUrl)
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         console.log(data); // ดูข้อมูลที่ได้รับในคอนโซล
         if (data.cod === 200) {
@@ -26,7 +31,7 @@ getWeatherBtn.addEventListener('click', () => {
         }
       })
       .catch(error => {
-        weatherInfo.innerHTML = `<p>Error fetching data: ${error}</p>`;
+        weatherInfo.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
         console.error('There was a problem with the fetch operation:', error);
       });
   } else {
