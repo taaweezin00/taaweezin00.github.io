@@ -6,21 +6,13 @@ var backgroundsList = [
   "day3.jpg",
   "day4.jpg",
   "day5.jpg",
-  // "night1.jpg",
-  // "night2.jpg",
-  // "night3.jpg",
-  // "night4.jpg",
-  // "night5.jpg",
+
   "cloudy1.jpg",
   "cloudy2.jpg",
   "cloudy3.jpg",
   "cloudy4.jpg",
   "cloudy5.jpg",
-  // "rainy1.jpg",
-  // "rainy2.jpg",
-  // "rainy3.jpg",
-  // "rainy4.jpg",
-  // "rainy5.jpg",
+
 ];
 
 var randomBackground = backgroundsList[Math.floor(Math.random() * backgroundsList.length)];
@@ -56,9 +48,7 @@ cityInput.addEventListener("keyup", function (event) {
       parentElement2.appendChild(img2);
       parentElement3.appendChild(img3);
 
-      // document.getElementById("loader1").src = "icons/loader.gif";
-      // document.getElementById("loader2").src = "icons/loader.gif";
-      // document.getElementById("loader3").src = "icons/loader.gif";
+
     }
 
     var cityInputValue = cityInput.value;
