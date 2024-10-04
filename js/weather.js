@@ -1,5 +1,5 @@
 function getWeather() {
-  const apiKey = '1b01b00a61b62f5bdc82e11572db3096';
+  const apiKey = '1b01b00a61b62f5bdc82e11572db3096'; // Replace with your actual API key
   const city = document.getElementById('city').value.trim();
 
   if (!city) {
@@ -10,6 +10,7 @@ function getWeather() {
   const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 
+  // Fetch current weather data
   fetch(currentWeatherUrl)
       .then(response => {
           if (!response.ok) {
@@ -25,6 +26,7 @@ function getWeather() {
           alert('Error: ' + error.message);
       });
 
+  // Fetch hourly forecast data
   fetch(forecastUrl)
       .then(response => {
           if (!response.ok) {
