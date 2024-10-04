@@ -33,6 +33,12 @@ input {
     margin-top: 20px;
 }
 
+input:focus {
+    outline: none;
+    border-color: #debff4;
+    box-shadow: 0 0 5px rgba(222, 191, 244, 0.5);
+}
+
 button {
     background: #debff4;
     color: white;
