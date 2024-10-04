@@ -1,13 +1,23 @@
+// Event listener for city input changes
 document.getElementById('city').addEventListener('input', function () {
   var city = this.value;
   getWeather(city);
 });
 
+// Function to get weather data
 async function getWeather() {
   try {
+      // Get the city name from input
       var city = document.getElementById('city').value;
-      console.log('Şəhər adı:', city);
 
+      if (!city) {
+          alert('Please enter a valid city name!');
+          return;
+      }
+
+      console.log('City:', city);
+
+      // Make API call to get weather forecast data
       const response = await axios.get('https://api.openweathermap.org/data/2.5/forecast', {
           params: {
               q: city,
@@ -15,13 +25,15 @@ async function getWeather() {
               units: 'metric'
           },
       });
-      const currentTemperature = response.data.list[0].main.temp;
 
+      // Get current temperature from response
+      const currentTemperature = response.data.list[0].main.temp;
       document.querySelector('.weather-temp').textContent = Math.round(currentTemperature) + 'ºC';
 
+      // Process forecast data
       const forecastData = response.data.list;
-
       const dailyForecast = {};
+
       forecastData.forEach((data) => {
           const day = new Date(data.dt * 1000).toLocaleDateString('en-US', { weekday: 'long' });
           if (!dailyForecast[day]) {
@@ -32,8 +44,6 @@ async function getWeather() {
                   humidity: data.main.humidity,
                   windSpeed: data.wind.speed,
                   icon: data.weather[0].icon,
-
-
               };
           } else {
               dailyForecast[day].minTemp = Math.min(dailyForecast[day].minTemp, data.main.temp_min);
@@ -41,23 +51,20 @@ async function getWeather() {
           }
       });
 
+      // Update current day and weather details
       document.querySelector('.date-dayname').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+      document.querySelector('.date-day').textContent = new Date().toUTCString().slice(5, 16);
 
-      const date = new Date().toUTCString();
-      const extractedDateTime = date.slice(5, 16);
-      document.querySelector('.date-day').textContent = extractedDateTime.toLocaleString('en-US');
-
-      const currentWeatherIconCode = dailyForecast[new Date().toLocaleDateString('en-US', { weekday: 'long' })].icon;
-      const weatherIconElement = document.querySelector('.weather-icon');
-      weatherIconElement.innerHTML = getWeatherIcon(currentWeatherIconCode);
-
+      // Update current weather icon and description
+      const currentDay = new Date().toLocaleDateString('en-US', { weekday: 'long' });
+      const currentWeatherIconCode = dailyForecast[currentDay].icon;
+      document.querySelector('.weather-icon').innerHTML = getWeatherIcon(currentWeatherIconCode);
       document.querySelector('.location').textContent = response.data.city.name;
-      document.querySelector('.weather-desc').textContent = dailyForecast[new Date().toLocaleDateString('en-US', { weekday: 'long' })].description.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      document.querySelector('.weather-desc').textContent = capitalizeWords(dailyForecast[currentDay].description);
+      document.querySelector('.humidity .value').textContent = dailyForecast[currentDay].humidity + ' %';
+      document.querySelector('.wind .value').textContent = dailyForecast[currentDay].windSpeed + ' m/s';
 
-      document.querySelector('.humidity .value').textContent = dailyForecast[new Date().toLocaleDateString('en-US', { weekday: 'long' })].humidity + ' %';
-      document.querySelector('.wind .value').textContent = dailyForecast[new Date().toLocaleDateString('en-US', { weekday: 'long' })].windSpeed + ' m/s';
-
-
+      // Update weekly forecast
       const dayElements = document.querySelectorAll('.day-name');
       const tempElements = document.querySelectorAll('.day-temp');
       const iconElements = document.querySelectorAll('.day-icon');
@@ -71,17 +78,25 @@ async function getWeather() {
       });
 
   } catch (error) {
-      console.error('Məlumat alınarkən səhv baş verdi:', error.message);
+      console.error('Error fetching data:', error.message);
+      alert('Failed to retrieve weather data. Please try again later or check the city name.');
   }
 }
 
+// Helper function to get the weather icon
 function getWeatherIcon(iconCode) {
   const iconBaseUrl = 'https://openweathermap.org/img/wn/';
   const iconSize = '@2x.png';
   return `<img src="${iconBaseUrl}${iconCode}${iconSize}" alt="Weather Icon">`;
 }
 
+// Helper function to capitalize words
+function capitalizeWords(str) {
+  return str.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+}
+
+// Automatically fetch weather on page load
 document.addEventListener("DOMContentLoaded", function () {
   getWeather();
-  setInterval(getWeather, 900000);
+  setInterval(getWeather, 900000); // Update every 15 minutes
 });
